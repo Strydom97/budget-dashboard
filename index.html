@@ -60,7 +60,7 @@ function parseValues(values){
  }
  DATA={months,pockets:[...pocketsByName.values()]};
  if(!DATA.pockets.length)throw new Error('No valid pocket records were found below row 6. Expected pocket names in column A and variables such as Current Balance or CF Balance in column B.');
- const select=document.getElementById('month');select.innerHTML='';months.forEach((m,i)=>{const o=new Option(m,i);select.add(o)});select.value=Math.min(1,months.length-1);select.disabled=false;document.getElementById('subtitle').textContent=`${selectedFile.name} · ${SHEET_NAME} · loaded ${new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;
+ const select=document.getElementById('month');select.innerHTML='';months.forEach((m,i)=>{const o=new Option(m,i);select.add(o)});const now=new Date(),currentMonthLabel=new Intl.DateTimeFormat('en-US',{month:'short',year:'2-digit'}).format(now).replace(' ','-'),currentMonthIndex=months.findIndex(month=>month.toLowerCase()===currentMonthLabel.toLowerCase());select.value=currentMonthIndex>=0?currentMonthIndex:months.length-1;select.disabled=false;document.getElementById('subtitle').textContent=`${selectedFile.name} · ${SHEET_NAME} · loaded ${new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;
 }
 const val=(p,key,i)=>(p.rows[key]||[])[i]??null;const balanceKey=p=>p.rows['Closing Balance']?'Closing Balance':'CF Balance';const active=i=>DATA.pockets.filter(p=>val(p,'Current Balance',i)!=null||val(p,balanceKey(p),i)!=null);
 function kpiTrend(values,color,light=false){
