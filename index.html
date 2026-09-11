@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Budget Pockets</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+:root{--ink:#15231f;--muted:#65746f;--paper:#edf2ed;--card:#fbfcf8;--line:#d7dfd6;--green:#146a51;--mint:#c8e6d5;--gold:#c58e31;--red:#bd4e43;--blue:#456ed5;--shadow:0 16px 38px rgba(27,54,43,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,Arial,sans-serif}.shell{max-width:1440px;margin:auto;padding:30px}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:7px 0 25px;border-bottom:1px solid var(--line)}.eyebrow,.label{font:500 11px/1.2 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}h1{font:600 clamp(35px,5vw,61px)/.97 'Playfair Display',Georgia,serif;letter-spacing:-.055em;margin:8px 0}.subtitle{color:var(--muted);font-size:14px;margin:0}.controls{display:flex;gap:10px;align-items:center}select,button{font:600 13px Manrope,sans-serif;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:7px;padding:11px 13px}button{cursor:pointer}button:hover{background:#e2eee4}.refresh{font-size:18px;padding:7px 11px}
+.loading{padding:46px 0;color:var(--muted);font-size:14px}.error{background:#fff2ef;border:1px solid #edc7c1;border-radius:12px;padding:20px;color:#8a372e;margin:24px 0}.error h2{font:700 19px/1.2 Manrope,sans-serif;letter-spacing:-.04em;margin:0 0 7px}.error p{margin:0 0 15px;font-size:13px}.sheet-form{display:flex;gap:9px;align-items:center}.sheet-form input{flex:1;min-width:0;border:1px solid #ddb8b2;border-radius:7px;background:#fff;padding:11px 12px;font:500 13px Manrope,sans-serif;color:var(--ink)}.sheet-form button{background:var(--ink);color:#fff;border-color:var(--ink);white-space:nowrap}.sheet-form button:hover{background:#29463b}@media(max-width:570px){.sheet-form{align-items:stretch;flex-direction:column}}.summary{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:12px;margin:24px 0}.card,.pocket,.chart{background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}.card{padding:18px 19px;min-height:142px;position:relative;overflow:hidden}.card:first-child{background:var(--ink);color:#f7faf4;border-color:var(--ink)}.card:first-child .label,.card:first-child .small{color:#b4c2ba}.number{font:700 28px/1.1 Manrope,sans-serif;letter-spacing:-.055em;margin-top:13px}.kpi-trend{height:31px;width:100%;display:block;margin-top:10px}.small{font-size:12px;color:var(--muted);margin-top:6px}.content-head{display:flex;justify-content:space-between;align-items:baseline;margin:34px 0 13px}.content-head h2,.chart h2{font:700 18px/1.2 Manrope,sans-serif;letter-spacing:-.04em;margin:0}.count{font:500 11px 'DM Mono',monospace;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.pocket{padding:20px}.pocket-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.pocket h3{font:700 19px/1.15 Manrope,sans-serif;letter-spacing:-.045em;margin:3px 0}.status{font:500 10px 'DM Mono',monospace;letter-spacing:.04em;text-transform:uppercase;padding:6px 7px;background:#e8eefb;color:var(--blue);white-space:nowrap}.status.warn{background:#e5efe9;color:var(--green)}.status.bad{background:#fbefd6;color:var(--gold)}.balance{font:700 34px/1 Manrope,sans-serif;letter-spacing:-.065em;margin:23px 0 4px}.bar-wrap{margin:19px 0 16px}.bar{height:9px;background:#e6ebe5;position:relative;overflow:visible}.fill{height:100%;background:var(--green);transition:width .35s ease}.marker{position:absolute;top:-4px;width:2px;height:17px;background:var(--gold)}.marker-labels{display:flex;justify-content:space-between;margin-top:7px;font:400 10px 'DM Mono',monospace;color:var(--muted)}.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:0 12px}.metric{border-top:1px solid var(--line);padding:10px 0 4px}.metric .value{font-size:14px;font-weight:700;margin-top:4px;letter-spacing:-.03em}.chart{margin:34px 0 0;padding:22px 20px 16px}.chart-intro{display:flex;justify-content:space-between;gap:20px;margin-bottom:15px}.range-controls{display:flex;align-items:center;gap:7px;font:500 10px 'DM Mono',monospace;color:var(--muted)}.range-controls input{width:48px;border:1px solid var(--line);background:#fff;border-radius:5px;padding:7px;text-align:center;font:500 12px 'DM Mono',monospace;color:var(--ink)}.chart p{font-size:12px;color:var(--muted);margin:4px 0 0}svg{width:100%;height:850px;display:block}.legend{display:flex;gap:18px;flex-wrap:wrap;font:400 10px 'DM Mono',monospace;color:var(--muted);margin-top:5px}.legend span:before{content:"";display:inline-block;width:17px;height:3px;background:var(--c);vertical-align:middle;margin-right:6px}.note{font-size:11px;color:var(--muted);margin:16px 0 2px}@media(max-width:850px){.summary{grid-template-columns:repeat(2,1fr)}.card:first-child{grid-column:span 2}.grid{grid-template-columns:1fr}}@media(max-width:570px){.shell{padding:18px 14px}header{align-items:flex-start;flex-direction:column}.summary{gap:9px}.card{padding:15px}.number{font-size:24px}.balance{font-size:30px}.chart{padding:16px 10px}.chart-intro{padding:0 6px}svg{height:870px}.controls{width:100%}select{width:100%}}
+</style>
+</head>
+<body><main class="shell">
+<header><div><div class="eyebrow">Personal finance · workbook dashboard</div><h1>Budget pockets</h1><p class="subtitle" id="subtitle">Upload your budget workbook to begin.</p></div><div class="controls"><select id="month" aria-label="Select month" disabled></select><button class="refresh" id="refresh" title="Choose another file" aria-label="Choose another file">↥</button></div></header>
+<input id="file-input" type="file" accept=".xlsx,.xls,.csv" hidden>
+<div id="app"><section class="error" style="background:#eff7f1;border-color:#c8e2d0;color:var(--ink)"><h2>Open a budget workbook</h2><p>Select an Excel workbook or CSV export. The dashboard reads the <strong>Priortiy</strong> worksheet in your browser; nothing is uploaded anywhere.</p><form class="sheet-form" id="upload-form"><input id="file-label" type="text" value="No file selected" readonly aria-label="Selected file"><button type="submit">Choose file</button></form></section></div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script>
+const SHEET_NAME='Priortiy';
+let DATA=null;
+let selectedFile=null;
+const CHART_RANGE={back:2,forward:6};
+const money=v=>v==null?'—':new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(v);
+const cleanNumber=v=>{if(v===null||v===undefined||v==='')return null;if(typeof v==='number')return v;const n=Number(String(v).replace(/[^0-9,.-]/g,'').replace(',','.'));return Number.isFinite(n)?n:null};
+function chooseFile(){document.getElementById('file-input').click()}
+async function loadFile(file){
+ if(!file)return;selectedFile=file;document.getElementById('app').innerHTML='<div class="loading">Reading your workbook locally…</div>';document.getElementById('month').disabled=true;
+ try{const buffer=await file.arrayBuffer();const workbook=XLSX.read(buffer,{type:'array',cellDates:true});const target=workbook.SheetNames.find(n=>n.trim().toLowerCase()===SHEET_NAME.toLowerCase());if(!target)throw new Error(`Could not find a worksheet named “${SHEET_NAME}”. Available sheets: ${workbook.SheetNames.join(', ')}.`);const values=XLSX.utils.sheet_to_json(workbook.Sheets[target],{header:1,defval:null,raw:true,dateNF:'mmm-yy'});parseValues(values);render()}catch(e){showError(e.message)}
+}
+function parseCsv(csv){
+ const rows=[];let row=[],cell='',quoted=false;
+ for(let i=0;i<csv.length;i++){const ch=csv[i],next=csv[i+1];if(ch==='"'&&quoted&&next==='"'){cell+='"';i++}else if(ch==='"'){quoted=!quoted}else if(ch===','&&!quoted){row.push(cell);cell=''}else if((ch==='\n'||ch==='\r')&&!quoted){if(ch==='\r'&&next==='\n')i++;row.push(cell);if(row.some(v=>v.trim()!==''))rows.push(row);row=[];cell=''}else cell+=ch}row.push(cell);if(row.some(v=>v.trim()!==''))rows.push(row);
+ parseValues(rows);
+}
+function parseValues(values){
+ // The Priortiy sheet has a fixed table: row 6 contains headers; records begin at row 7.
+ // Rows 1–5 are intentionally ignored.
+ const HEADER_ROW=5, FIRST_RECORD_ROW=6, MONTH_START_COLUMN=2;
+ if(values.length<=FIRST_RECORD_ROW)throw new Error('The Priortiy worksheet has no pocket records below row 6.');
+ const header=values[HEADER_ROW]||[];
+ const months=header.slice(MONTH_START_COLUMN).map(v=>{
+ if(v instanceof Date)return new Intl.DateTimeFormat('en-US',{month:'short',year:'2-digit'}).format(v).replace(' ','-');
+ return String(v??'').trim();
+}).filter(Boolean);
+ if(months.length<2)throw new Error('Expected month headers from column C on row 6 (for example Jul-26, Aug-26).');
+ const pocketsByName=new Map();
+ const rowLabels=['Current Balance','Actual Spend','Min Funds','Max Funds','Allocated','Expected Expense','Closing Balance','CF Balance'];
+ for(let r=FIRST_RECORD_ROW;r<values.length;r++){
+  const row=values[r]||[];
+  const pocketName=String(row[0]??'').trim();
+  const metricName=String(row[1]??'').trim().replace(/[:\s]+$/,'');
+  if(!pocketName||!metricName)continue;
+  const metric=rowLabels.find(label=>label.toLowerCase()===metricName.toLowerCase());
+  if(!metric)continue;
+  if(!pocketsByName.has(pocketName))pocketsByName.set(pocketName,{name:pocketName,rows:{}});
+  pocketsByName.get(pocketName).rows[metric]=months.map((_,i)=>cleanNumber(row[MONTH_START_COLUMN+i]));
+ }
+ DATA={months,pockets:[...pocketsByName.values()]};
+ if(!DATA.pockets.length)throw new Error('No valid pocket records were found below row 6. Expected pocket names in column A and variables such as Current Balance or CF Balance in column B.');
+ const select=document.getElementById('month');select.innerHTML='';months.forEach((m,i)=>{const o=new Option(m,i);select.add(o)});select.value=Math.min(1,months.length-1);select.disabled=false;document.getElementById('subtitle').textContent=`${selectedFile.name} · ${SHEET_NAME} · loaded ${new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;
+}
+const val=(p,key,i)=>(p.rows[key]||[])[i]??null;const balanceKey=p=>p.rows['Closing Balance']?'Closing Balance':'CF Balance';const active=i=>DATA.pockets.filter(p=>val(p,'Current Balance',i)!=null||val(p,balanceKey(p),i)!=null);
+function kpiTrend(values,color,light=false){
+ const usable=values.filter(v=>Number.isFinite(v));if(!usable.length)return '<svg class="kpi-trend" viewBox="0 0 160 31" preserveAspectRatio="none"></svg>';
+ const lo=Math.min(...usable),hi=Math.max(...usable),range=hi-lo||1;let d='',started=false;
+ values.forEach((v,index)=>{if(!Number.isFinite(v)){started=false;return}const x=values.length===1?80:index*160/(values.length-1),y=27-(v-lo)*22/range;d+=(started?' L':'M')+x+' '+y;started=true});
+ const last=values.length-1,lastV=values[last],lastY=Number.isFinite(lastV)?27-(lastV-lo)*22/range:16;
+ return `<svg class="kpi-trend" viewBox="0 0 160 31" preserveAspectRatio="none" aria-hidden="true"><path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="160" cy="${lastY}" r="2.6" fill="${color}"/></svg>`;
+}
+function render(){const i=+document.getElementById('month').value,ps=active(i),total=(key,month=i)=>active(month).map(p=>val(p,key==='balance'?balanceKey(p):key,month)).filter(v=>v!=null).reduce((a,b)=>a+b,0),below=ps.filter(p=>{let b=val(p,balanceKey(p),i),m=val(p,'Min Funds',i);return b!=null&&m!=null&&b<m}).length;
+ const history=DATA.months.slice(0,i+1).map((_,month)=>({balance:total('balance',month),allocation:total('Allocated',month),spend:total('Actual Spend',month),below:active(month).filter(p=>{const b=val(p,balanceKey(p),month),m=val(p,'Min Funds',month);return b!=null&&m!=null&&b<m}).length}));
+ document.getElementById('app').innerHTML=`<section class="summary"><article class="card"><div class="label">Total closing balance</div><div class="number">${money(total('balance'))}</div>${kpiTrend(history.map(d=>d.balance),'#c8e6d5')}<div class="small">Across ${ps.length} active pockets</div></article><article class="card"><div class="label">Monthly allocation</div><div class="number">${money(total('Allocated'))}</div>${kpiTrend(history.map(d=>d.allocation),'#146a51')}<div class="small">Planned contributions</div></article><article class="card"><div class="label">Actual spend</div><div class="number">${money(total('Actual Spend'))}</div>${kpiTrend(history.map(d=>d.spend),'#bd4e43')}<div class="small">Recorded for ${DATA.months[i]}</div></article><article class="card"><div class="label">Below minimum</div><div class="number">${below}</div>${kpiTrend(history.map(d=>d.below),'#c58e31')}<div class="small">Pockets needing attention</div></article></section><div class="content-head"><h2>Active pockets</h2><span class="count">${DATA.months[i]} · ${ps.length} shown</span></div><section class="grid">${ps.map(p=>pocket(p,i)).join('')}</section><section class="chart"><div class="chart-intro"><div><h2>Closing balance over time</h2><p>Each pocket uses its own scale so progress remains legible.</p></div><div class="range-controls"><label for="months-back">Months back</label><input id="months-back" type="number" min="0" max="24" value="${CHART_RANGE.back}"><label for="months-forward">Forward</label><input id="months-forward" type="number" min="0" max="24" value="${CHART_RANGE.forward}"></div></div><svg id="chart" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-label="Closing balance chart"></svg><div class="legend"><span style="--c:var(--gold)">Minimum target</span><span style="--c:var(--green)">Maximum target</span><span style="--c:var(--blue)">Closing balance</span></div></section><p class="note">Source: Google Sheets · ${SHEET_NAME}. Use the refresh button after making changes.</p>`;drawChart(i)}
+function pocket(p,i){const key=balanceKey(p),b=val(p,key,i),min=val(p,'Min Funds',i),max=val(p,'Max Funds',i);let status='good',text='Within range',barColor='var(--blue)';if(b!=null&&min!=null&&b<min){status='bad';text='Below minimum';barColor='var(--gold)'}else if(b!=null&&max!=null&&b>max){status='warn';text='Above maximum';barColor='var(--green)'}const pos=max>0?Math.max(0,Math.min(100,b/max*100)):0,minPos=max>0&&min!=null?Math.max(0,Math.min(100,min/max*100)):null;return `<article class="pocket"><div class="pocket-head"><div><div class="label">${key}</div><h3>${p.name}</h3></div><div class="status ${status}">${text}</div></div><div class="balance">${money(b)}</div><div class="small">Closing position for ${DATA.months[i]}</div><div class="bar-wrap"><div class="bar"><div class="fill" style="width:${pos}%;background:${barColor}"></div>${minPos!=null?`<div class="marker" style="left:${minPos}%"></div>`:''}</div><div class="marker-labels"><span>MIN ${money(min)}</span><span>MAX ${money(max)}</span></div></div><div class="metrics">${[['Current balance','Current Balance'],['Allocated','Allocated'],['Actual spend','Actual Spend'],['Expected expense','Expected Expense']].map(([l,k])=>`<div class="metric"><div class="label">${l}</div><div class="value">${money(val(p,k,i))}</div></div>`).join('')}</div></article>`}
+function drawChart(current){
+ const svg=document.getElementById('chart'),W=1000,H=850,pad={l:205,r:25,t:14,b:45},series=DATA.pockets.filter(p=>p.rows[balanceKey(p)]);
+ const start=Math.max(0,current-CHART_RANGE.back),end=Math.min(DATA.months.length-1,current+CHART_RANGE.forward),indices=Array.from({length:end-start+1},(_,n)=>start+n),band=(H-pad.t-pad.b)/series.length;
+ const x=index=>pad.l+(W-pad.l-pad.r)*((index-start)/Math.max(1,end-start));let out='';
+ series.forEach((p,si)=>{const vals=p.rows[balanceKey(p)],mins=p.rows['Min Funds']||[],maxs=p.rows['Max Funds']||[],top=pad.t+si*band,bottom=top+band-16;
+  // Each pocket has its own dynamic scale: zero to 120% of its maximum visible closing balance, rounded up to €1,000.
+  const closingValues=indices.map(j=>vals[j]).filter(Number.isFinite),maxTarget=Math.max(0,...indices.map(j=>maxs[j]).filter(Number.isFinite)),axisBase=Math.max(Math.max(1,...closingValues)*1.2,maxTarget*1.2),axisMax=Math.ceil(axisBase/1000)*1000,range=axisMax,y=v=>bottom-(bottom-top-23)*v/range,ticks=[0,axisMax/2,axisMax];
+  const min=indices.map(j=>mins[j]).find(Number.isFinite),max=indices.map(j=>maxs[j]).find(Number.isFinite),yMin=Number.isFinite(min)?y(min):bottom,yMax=Number.isFinite(max)?y(max):top;
+  // Status-zone bands use the same palette as the pocket bars: orange, blue, then green.
+  out+=`<rect x="${pad.l}" y="${top}" width="${W-pad.l-pad.r}" height="${Math.max(0,yMax-top)}" fill="#146a51" opacity=".12"/><rect x="${pad.l}" y="${yMax}" width="${W-pad.l-pad.r}" height="${Math.max(0,yMin-yMax)}" fill="#456ed5" opacity=".11"/><rect x="${pad.l}" y="${yMin}" width="${W-pad.l-pad.r}" height="${Math.max(0,bottom-yMin)}" fill="#c58e31" opacity=".14"/>`;
+  ticks.forEach(t=>out+=`<line x1="${pad.l}" y1="${y(t)}" x2="${W-pad.r}" y2="${y(t)}" stroke="#d7dfd6" stroke-width=".8"/><text x="${pad.l-9}" y="${y(t)+3}" text-anchor="end" font-family="DM Mono" font-size="9" fill="#65746f">${money(t)}</text>`);
+  out+=`<line x1="${pad.l}" y1="${top}" x2="${W-pad.r}" y2="${top}" stroke="#d7dfd6"/><text x="6" y="${top+18}" font-family="Manrope" font-size="13" font-weight="700" fill="#15231f">${p.name}</text>`;
+  if(Number.isFinite(min))out+=`<line x1="${pad.l}" y1="${yMin}" x2="${W-pad.r}" y2="${yMin}" stroke="#c58e31" stroke-width="1.2" stroke-dasharray="5 4"/><text x="${W-pad.r}" y="${yMin-3}" text-anchor="end" font-family="DM Mono" font-size="8" fill="#925e0b">MIN</text>`;
+  if(Number.isFinite(max))out+=`<line x1="${pad.l}" y1="${yMax}" x2="${W-pad.r}" y2="${yMax}" stroke="#146a51" stroke-width="1.2" stroke-dasharray="5 4"/><text x="${W-pad.r}" y="${yMax-3}" text-anchor="end" font-family="DM Mono" font-size="8" fill="#146a51">MAX</text>`;
+  let d='',started=false;indices.forEach(j=>{const v=vals[j];if(!Number.isFinite(v)){started=false;return}d+=(started?' L':'M')+x(j)+' '+y(v);started=true});out+=`<path d="${d}" fill="none" stroke="#15231f" stroke-width="2.8" stroke-linecap="round"/>`;if(Number.isFinite(vals[current]))out+=`<line x1="${x(current)}" y1="${top}" x2="${x(current)}" y2="${bottom}" stroke="#456ed5" stroke-width="1" opacity=".3"/><circle cx="${x(current)}" cy="${y(vals[current])}" r="4.5" fill="#15231f"/>`});
+ out+=`<line x1="${pad.l}" y1="${H-pad.b}" x2="${W-pad.r}" y2="${H-pad.b}" stroke="#aebbb3"/>`;
+ indices.forEach(j=>out+=`<line x1="${x(j)}" y1="${H-pad.b}" x2="${x(j)}" y2="${H-pad.b+5}" stroke="#aebbb3"/><text x="${x(j)}" y="${H-11}" text-anchor="middle" font-family="DM Mono" font-size="8.5" fill="${j===current?'#456ed5':'#65746f'}">${DATA.months[j]}</text>`);svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML=out
+}
+function showError(message){
+ document.getElementById('app').innerHTML=`<section class="error"><h2>Couldn’t read this workbook</h2><p>${message}</p><form class="sheet-form" id="upload-form"><input id="file-label" type="text" value="${selectedFile?selectedFile.name:'No file selected'}" readonly aria-label="Selected file"><button type="submit">Choose another file</button></form></section>`;
+ document.getElementById('subtitle').textContent='Choose an Excel workbook or CSV export to continue.';
+ document.getElementById('upload-form').addEventListener('submit',event=>{event.preventDefault();chooseFile()});
+}
+document.getElementById('file-input').addEventListener('change',event=>loadFile(event.target.files[0]));document.getElementById('upload-form').addEventListener('submit',event=>{event.preventDefault();chooseFile()});document.getElementById('month').addEventListener('change',render);document.getElementById('refresh').addEventListener('click',chooseFile);document.addEventListener('change',event=>{if(event.target.id==='months-back'||event.target.id==='months-forward'){const key=event.target.id==='months-back'?'back':'forward';CHART_RANGE[key]=Math.max(0,Math.min(24,Number(event.target.value)||0));if(DATA)render()}});
+</script></body></html>
